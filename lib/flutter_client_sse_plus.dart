@@ -791,23 +791,4 @@ class SSEClientPlus {
   /// 检查是否可以重载
   bool get canReload =>
       _isDisposed && _statusController != null && _eventController != null && !_statusController!.isClosed && !_eventController!.isClosed;
-
-  /// 重载SSE客户端
-  ///
-  /// [config] 新的连接配置
-  /// [onStatusChanged] 状态变化回调（可选）
-  Future<void> reload({
-    required SSEConnectionConfig config,
-    void Function(SSEConnectionStatus status, {String? message})?
-        onStatusChanged,
-  }) async {
-    if (!canReload) {
-      throw StateError(
-          'SSEClientPlus cannot be reloaded. Stream controllers may be closed.');
-    }
-
-    SSELogger.info('Reloading SSEClientPlus...');
-    await initialize(config: config, onStatusChanged: onStatusChanged);
-    SSELogger.info('SSEClientPlus reloaded successfully');
-  }
 }
